@@ -47,7 +47,7 @@
       user: ansible
       minute: "*/1"
       #job: ansible-pull --only-if-changed --url https://github.com/ito-rafael/pc-general-config.git ansible/local.yml   
-      job: ansible-pull --only-if-changed --url https://github.com/ito-rafael/ansible-test.git local.yml   
+      job: ansible-pull --url https://github.com/ito-rafael/ansible-test.git local.yml   
 
 - hosts: all
   tags: base

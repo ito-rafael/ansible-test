@@ -2,3 +2,16 @@
   group:
     name: joao
     state: present
+
+- name: users | rafael | create user
+  user:
+    name: joao
+    group: joao
+    #groups: adm,ansible,{{ sudo_group }}
+    state: present
+    #comment: "Rafael Ito"
+    comment: "Joao"
+    #password: "{{ rafael_passwd }}"
+    shell: /usr/bin/zsh
+
+

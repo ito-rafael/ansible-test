@@ -1,4 +1,4 @@
 - name: users | rafael | create group
   group:
-    name: rafael
+    name: joao
     state: present

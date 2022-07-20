@@ -39,6 +39,20 @@
         state: latest
       when: ansible_distribution == "Debian"
 
+    - name: init | openssh | [Arch] start daemon
+      systemd:
+        name: sshd
+        state: started
+        enabled: yes
+      when: ansible_distribution == "Archlinux"
+
+    - name: init | openssh | [Debian] start daemon
+      systemd:
+        name: ssh
+        state: started
+        enabled: yes
+      when: ansible_distribution == "Debian"
+
     - name: init | ssh | create dir
       file:
         path: /home/ansible/.ssh

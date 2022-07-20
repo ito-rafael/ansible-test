@@ -1,3 +1,14 @@
+# load distro-specific variables
+- include_vars: "{{ ansible_distribution }}.yml"
+
 - block:
-  # make sure users exist on the system
+
+  # set up ansible environment
+  - import_tasks: ansible_setup.yml
+  - import_tasks: software/fcron.yml
+  - import_tasks: system/auto-provision.yml
+
+  # set up users
   - import_tasks: users/rafael.yml
+
+  # system setup

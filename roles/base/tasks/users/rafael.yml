@@ -1,17 +1,22 @@
 - name: users | rafael | create group
   group:
-    name: joao
+    name: rafael
     state: present
 
 - name: users | rafael | create user
   user:
-    name: joao
-    group: joao
-    #groups: adm,ansible,{{ sudo_group }}
+    name: rafael
+    group: rafael
+    groups: "{{ sudo_group }}"
     state: present
-    #comment: "Rafael Ito"
-    comment: "Joao"
-    #password: "{{ rafael_passwd }}"
+    comment: "Rafael Ito"
+    password: "{{ rafael_passwd }}"
     shell: /usr/bin/zsh
 
-
+- name: users | rafael | add sudoers file
+  copy:
+    src: files/users/sudoers_rafael
+    dest: /etc/sudoers.d/rafael
+    owner: root
+    group: root
+    mode: 0440

@@ -2,57 +2,21 @@
 - hosts: localhost
   connection: local
   become: true
-
-  tasks:
-
-  - name: install packages
-    package:
-      name:
-        - fcron
-
-  - name: create ansible user
-    user:
-      name: ansible
-      system: yes
-
-  - name: give ansible user sudo permission
-    copy:
-      src: files/sudoer_ansible
-      dest: /etc/sudoers.d/ansible
-      owner: root
-      group: root
-      mode: 0440
-
-  - name: create symlink to crontab
-    file:
-      src: /usr/bin/fcrontab
-      path: /usr/bin/crontab
-      state: link
-
-  - name: add ansbile user to fcron.allow
-    lineinfile:
-      path: /etc/fcron/fcron.allow
-      line: ansible
-
-  - name: start fcron daemon
-    systemd:
-      name: fcron
-      state: started
-      enabled: yes
-
-  - name: add ansible-pull cron job
-    cron:
-      cron_file: 
-      name: ansible auto-provision
-      user: ansible
-      minute: "*/1"
-      #job: ansible-pull --only-if-changed --url https://github.com/ito-rafael/pc-general-config.git ansible/local.yml   
-      job: ansible-pull --url https://github.com/ito-rafael/ansible-test.git local.yml   
-
-- hosts: all
-  tags: base
-  become: true
   roles:
     - base
 
+- hosts: all
+  become: true
+  pre_tasks:
+    - name: pre-run | [Arch] update package cache
+      tags: always
+      pacman: update_cache=yes
+      changed_when: False
+      when: ansible_distribution == "Archlinux"
+
+- hosts: workstation
+  tags: workstation
+  become: true
+  roles:
+    - workstation
 ...

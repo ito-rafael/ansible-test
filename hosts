@@ -1,5 +1,7 @@
 [workstation]
-Y2P-ArchLinux.internal
+VB-ArchLinux
+#Y2P-ArchLinux.internal
+#VB-ArchLinux.internal
 
-[server]
+#[server]
 #proxmox.internal
